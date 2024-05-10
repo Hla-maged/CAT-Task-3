@@ -1,35 +1,6 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
-import 'package:project/models/weather_model.dart';
-import 'package:project/pages/home_page.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:project/pages/search_page.dart';
-import 'package:provider/provider.dart';
-
-// void main() {
-//   runApp(ChangeNotifierProvider(
-//       create: (context) {
-//         return WeatherProvider();
-//       },
-//       child: WeatherApp()));
-// }
-
-// class WeatherApp extends StatelessWidget {
-//   WeatherModel? DATA;
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       theme: ThemeData(
-//           primarySwatch: Provider.of<WeatherProvider>(context).DATA == null
-//               ? Colors.blue
-//               : Provider.of<WeatherProvider>(context).DATA!.getColor()),
-//       debugShowCheckedModeBanner: false,
-//       home: Home(),
-//     );
-//   }
-// }
 
 void main() {
   runApp(Task());
@@ -42,39 +13,37 @@ class Task extends StatefulWidget {
 
 class _TaskState extends State<Task> {
   GlobalKey<FormState> State = new GlobalKey<FormState>();
-  ThemeMode mode = ThemeMode.dark;
-  void Theme(bool on) {
-    setState(() {
-      mode = on ? ThemeMode.light : ThemeMode.dark;
-    });
-  }
-
+  bool f = false;
+  Color pcolor = Colors.white;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
       home: Scaffold(
+        backgroundColor: pcolor,
         appBar: AppBar(
           backgroundColor: Color(0xff4CB6AC),
-          actions: [
-            Switch(
-              value: mode == ThemeMode.light,
-              onChanged: Theme,
-            ),
-          ],
+          leading: Switch(
+            value: f,
+            onChanged: (val) {
+              setState(() {
+                f = val;
+                (f ? pcolor = Colors.grey.shade900 : pcolor = Colors.white);
+              });
+            },
+          ),
           title: Center(
             child: Text(
-              "Sign IN",
-              style: TextStyle(color: Colors.white, fontSize: 26),
-            ),
+                "Sign IN",
+                style: TextStyle(color: Colors.white, fontSize: 26),
+              ),
           ),
+          
         ),
         body: Column(
           children: [
             Spacer(),
-            Image.asset('assets/images/week 3_ image.png'),
+            Image.asset('assets/week 3_ image.png'),
             Form(
               autovalidateMode: AutovalidateMode.always,
               key: State,
